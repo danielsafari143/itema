@@ -46,5 +46,17 @@
     "message": "lkdjfkshkjfhkjsdjhfgsjhgdfkjhsbdjhf",
     "price": 300,
     "created_at": "2025-08-07T16:27:24.198Z"
+  },
+  {
+    "id": 1754591817740,
+    "event_type": "wedding",
+    "full_name": "Safari Daniel",
+    "phone": "0977974591",
+    "email": "danielsafari143@gmail.com",
+    "event_date": "2025-08-28",
+    "guests": "23",
+    "message": "kjashdlkfjhladsjfhalkjs",
+    "price": 1000,
+    "created_at": "2025-08-07T18:36:57.740Z"
   }
 ]
