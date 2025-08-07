@@ -1,0 +1,31 @@
+{
+  "name": "event-booking-website",
+  "version": "1.0.0",
+  "description": "A simple event booking website for weddings, birthdays, and baptisms",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "db:setup": "node database/setup.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "event",
+    "booking",
+    "wedding",
+    "birthday",
+    "baptism",
+    "file-based-db"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

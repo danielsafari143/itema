@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résumé de Réservation - Réservation d'Événements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><%= t.nav.brand %></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/wedding"><%= t.nav.wedding %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/birthday"><%= t.nav.birthday %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/baptism"><%= t.nav.baptism %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/login">Administration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Summary Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="summary-card">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-check-circle fa-3x mb-3"></i>
+                            <h1 class="display-4 fw-bold"><%= t.summary.title %></h1>
+                            <p class="lead"><%= t.summary.subtitle %></p>
+                        </div>
+
+                        <div class="row g-4">
+                            <!-- Event Details -->
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-10 rounded p-4 h-100">
+                                    <h4 class="fw-bold mb-3"><%= t.summary.eventDetails %></h4>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <strong><%= t.summary.eventType %>:</strong><br>
+                                            <span class="text-capitalize">
+                                                <% if (booking.event_type === 'wedding') { %>
+                                                    <%= t.nav.wedding %>
+                                                <% } else if (booking.event_type === 'birthday') { %>
+                                                    <%= t.nav.birthday %>
+                                                <% } else if (booking.event_type === 'baptism') { %>
+                                                    <%= t.nav.baptism %>
+                                                <% } else { %>
+                                                    <%= booking.event_type %>
+                                                <% } %>
+                                            </span>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong><%= t.summary.eventDate %>:</strong><br>
+                                            <%= new Date(booking.event_date).toLocaleDateString('fr-FR') %>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong><%= t.summary.guests %>:</strong><br>
+                                            <%= booking.guests %>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Contact Information -->
+                            <div class="col-md-6">
+                                <div class="bg-white bg-opacity-10 rounded p-4 h-100">
+                                    <h4 class="fw-bold mb-3"><%= t.summary.contactInfo %></h4>
+                                    <ul class="list-unstyled">
+                                        <li class="mb-2">
+                                            <strong><%= t.summary.name %>:</strong><br>
+                                            <%= booking.full_name %>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong><%= t.summary.phone %>:</strong><br>
+                                            <%= booking.phone %>
+                                        </li>
+                                        <li class="mb-2">
+                                            <strong><%= t.summary.email %>:</strong><br>
+                                            <%= booking.email %>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Section -->
+                        <div class="text-center mt-5">
+                            <h3 class="fw-bold mb-3"><%= t.summary.serviceCost %></h3>
+                            <div class="price-display">
+                                $<%= booking.price %>
+                            </div>
+                            <p class="lead"><%= t.summary.totalCost %></p>
+                        </div>
+
+                        <!-- Message/Notes -->
+                        <% if (booking.message && booking.message.trim() !== '') { %>
+                        <div class="mt-4">
+                            <h5 class="fw-bold"><%= t.summary.additionalNotes %>:</h5>
+                            <div class="bg-white bg-opacity-10 rounded p-3">
+                                <p class="mb-0"><%= booking.message %></p>
+                            </div>
+                        </div>
+                        <% } %>
+
+                        <!-- Next Steps -->
+                        <div class="text-center mt-5">
+                            <h4 class="fw-bold mb-3"><%= t.summary.nextSteps.title %></h4>
+                            <p class="mb-4">
+                                <%= t.summary.nextSteps.description %>
+                            </p>
+                            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                <a href="/" class="btn btn-light btn-lg">
+                                    <%= t.summary.nextSteps.backHome %>
+                                </a>
+                                <a href="/<%= booking.event_type %>" class="btn btn-outline-light btn-lg">
+                                    <%= t.summary.nextSteps.viewServices %>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p><%= t.footer.copyright %></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</body>
+</html>

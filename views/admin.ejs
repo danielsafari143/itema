@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Réservation d'Événements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><%= t.nav.brand %></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/wedding"><%= t.nav.wedding %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/birthday"><%= t.nav.birthday %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/baptism"><%= t.nav.baptism %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin">Administration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Dashboard -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="display-4 fw-bold mb-0">Tableau de Bord Administrateur</h1>
+                        <div>
+                            <button class="btn btn-outline-secondary me-2" onclick="location.reload()">
+                                <i class="fas fa-sync-alt"></i> Actualiser
+                            </button>
+                            <a href="/admin/logout" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Statistics Cards -->
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-4">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Total Réservations</h5>
+                                    <h2 class="display-6" id="totalBookings">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Revenus Totaux</h5>
+                                    <h2 class="display-6" id="totalRevenue">0€</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-info text-white">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Réservations Aujourd'hui</h5>
+                                    <h2 class="display-6" id="todayBookings">0</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Management -->
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <h4>Gestion des Prix</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="form-label">Prix Mariage ($)</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="weddingPrice" value="500">
+                                        <button class="btn btn-primary" onclick="updatePrice('wedding')">Mettre à jour</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Prix Anniversaire ($)</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="birthdayPrice" value="300">
+                                        <button class="btn btn-primary" onclick="updatePrice('birthday')">Mettre à jour</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Prix Baptême ($)</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="baptismPrice" value="200">
+                                        <button class="btn btn-primary" onclick="updatePrice('baptism')">Mettre à jour</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bookings Table -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Réservations Récentes</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Type d'Événement</th>
+                                            <th>Nom</th>
+                                            <th>Email</th>
+                                            <th>Téléphone</th>
+                                            <th>Date</th>
+                                            <th>Invitations</th>
+                                            <th>Prix</th>
+                                            <th>Date de Création</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bookingsTable">
+                                        <!-- Bookings will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p><%= t.footer.copyright %></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Load bookings on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookings();
+            loadPrices();
+        });
+
+        // Load bookings from API
+        async function loadBookings() {
+            try {
+                const response = await fetch('/admin/bookings');
+                const bookings = await response.json();
+                
+                const tableBody = document.getElementById('bookingsTable');
+                tableBody.innerHTML = '';
+                
+                let totalRevenue = 0;
+                let todayBookings = 0;
+                const today = new Date().toDateString();
+                
+                bookings.forEach(booking => {
+                    const row = document.createElement('tr');
+                    const bookingDate = new Date(booking.created_at).toDateString();
+                    
+                    if (bookingDate === today) {
+                        todayBookings++;
+                    }
+                    
+                    totalRevenue += parseFloat(booking.price);
+                    
+                    row.innerHTML = `
+                        <td>${booking.id}</td>
+                        <td>${getEventTypeName(booking.event_type)}</td>
+                        <td>${booking.full_name}</td>
+                        <td>${booking.email}</td>
+                        <td>${booking.phone}</td>
+                        <td>${new Date(booking.event_date).toLocaleDateString('fr-FR')}</td>
+                        <td>${booking.guests}</td>
+                        <td>$${booking.price}</td>
+                        <td>${new Date(booking.created_at).toLocaleDateString('fr-FR')}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+                
+                // Update statistics
+                document.getElementById('totalBookings').textContent = bookings.length;
+                document.getElementById('totalRevenue').textContent = '$' + totalRevenue;
+                document.getElementById('todayBookings').textContent = todayBookings;
+                
+            } catch (error) {
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        // Load current prices
+        async function loadPrices() {
+            try {
+                const response = await fetch('/admin/prices');
+                const prices = await response.json();
+                
+                prices.forEach(price => {
+                    if (price.event_type === 'wedding') {
+                        document.getElementById('weddingPrice').value = price.price;
+                    } else if (price.event_type === 'birthday') {
+                        document.getElementById('birthdayPrice').value = price.price;
+                    } else if (price.event_type === 'baptism') {
+                        document.getElementById('baptismPrice').value = price.price;
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading prices:', error);
+            }
+        }
+
+        // Update price
+        async function updatePrice(eventType) {
+            const priceInput = document.getElementById(eventType + 'Price');
+            const price = priceInput.value;
+            
+            try {
+                const response = await fetch('/admin/prices', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ eventType, price })
+                });
+                
+                if (response.ok) {
+                    alert('Prix mis à jour avec succès !');
+                    loadBookings(); // Reload to update statistics
+                } else {
+                    alert('Erreur lors de la mise à jour du prix');
+                }
+            } catch (error) {
+                console.error('Error updating price:', error);
+                alert('Erreur lors de la mise à jour du prix');
+            }
+        }
+
+        // Get event type name in French
+        function getEventTypeName(eventType) {
+            switch(eventType) {
+                case 'wedding': return 'Mariage';
+                case 'birthday': return 'Anniversaire';
+                case 'baptism': return 'Baptême';
+                default: return eventType;
+            }
+        }
+    </script>
+</body>
+</html>

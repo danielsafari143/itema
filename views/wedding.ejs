@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services de Mariage - Réservation d'Événements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><%= t.nav.brand %></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/wedding"><%= t.nav.wedding %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/birthday"><%= t.nav.birthday %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/baptism"><%= t.nav.baptism %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/login">Administration</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4"><%= t.events.wedding.title %></h1>
+            <p class="lead mb-4"><%= t.events.wedding.subtitle %></p>
+            <div class="mb-4">
+                <span class="badge bg-light text-dark fs-5 px-3 py-2">À partir de $<%= prices.wedding %></span>
+            </div>
+            <a href="/wedding/booking" class="btn btn-primary btn-lg"><%= t.common.bookNow %></a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4"><%= t.events.wedding.services.title %></h2>
+                    <p class="lead text-muted mb-5">
+                        <%= t.events.wedding.services.description %>
+                    </p>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-ring fa-2x text-primary"></i>
+                        </div>
+                        <h5><%= t.events.wedding.services.ceremony.title %></h5>
+                        <p class="text-muted"><%= t.events.wedding.services.ceremony.description %></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-utensils fa-2x text-primary"></i>
+                        </div>
+                        <h5><%= t.events.wedding.services.reception.title %></h5>
+                        <p class="text-muted"><%= t.events.wedding.services.reception.description %></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="fas fa-music fa-2x text-primary"></i>
+                        </div>
+                        <h5><%= t.events.wedding.services.entertainment.title %></h5>
+                        <p class="text-muted"><%= t.events.wedding.services.entertainment.description %></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold"><%= t.events.wedding.gallery.title %></h2>
+                    <p class="lead text-muted"><%= t.events.wedding.gallery.subtitle %></p>
+                </div>
+            </div>
+            
+            <div class="row g-4 event-gallery">
+                <div class="col-lg-4 col-md-6">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         class="img-fluid" alt="Cérémonie de Mariage">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         class="img-fluid" alt="Réception de Mariage">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                         class="img-fluid" alt="Détails de Mariage">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4"><%= t.events.wedding.cta.title %></h2>
+                    <p class="lead text-muted mb-4">
+                        <%= t.events.wedding.cta.subtitle %>
+                    </p>
+                    <a href="/wedding/booking" class="btn btn-primary btn-lg"><%= t.events.wedding.cta.button %></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p><%= t.footer.copyright %></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+</body>
+</html>

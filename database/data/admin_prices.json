@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "event_type": "wedding",
+    "price": 1000,
+    "updated_at": "2025-08-07T16:23:32.680Z"
+  },
+  {
+    "id": 2,
+    "event_type": "birthday",
+    "price": 300,
+    "updated_at": "2025-08-07T16:23:38.135Z"
+  },
+  {
+    "id": 3,
+    "event_type": "baptism",
+    "price": 200,
+    "updated_at": "2025-08-07T16:23:45.390Z"
+  }
+]
