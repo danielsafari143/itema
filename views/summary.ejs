@@ -1,161 +1,182 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= t.summary.pageTitle %> - Événement</title>
-    
-    <!-- Styles -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-    <link rel="preconnect" href="https://kit.fontawesome.com">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Résumé de Réservation - Réservation d'Événements</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .summary-card {
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.05);
+      padding: 3rem 2rem;
+    }
+
+    .summary-icon {
+      background-color: #198754;
+      color: white;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+    }
+
+    .price-display {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #198754;
+    }
+
+    .btn-light, .btn-outline-light {
+      min-width: 200px;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .btn-outline-light {
+      border-color: #6c757d;
+      color: #6c757d;
+    }
+
+    .btn-outline-light:hover {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .footer {
+      background-color: #343a40;
+      color: white;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    .bg-opacity-10 {
+      background-color: rgba(0, 0, 0, 0.03) !important;
+    }
+  </style>
 </head>
-<body class="bg-light text-dark">
+<body>
 
-    <!-- 🔝 Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="/"><%= t.nav.brand %></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/wedding"><%= t.nav.wedding %></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/birthday"><%= t.nav.birthday %></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/baptism"><%= t.nav.baptism %></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/login">Admin</a>
-                    </li>
-                </ul>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/"><%= t.nav.brand %></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/wedding"><%= t.nav.wedding %></a></li>
+          <li class="nav-item"><a class="nav-link" href="/birthday"><%= t.nav.birthday %></a></li>
+          <li class="nav-item"><a class="nav-link" href="/baptism"><%= t.nav.baptism %></a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/login">Administration</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Summary Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <div class="summary-card">
+            <!-- Icon + Title -->
+            <div class="text-center mb-5">
+              <div class="summary-icon">
+                <i class="fas fa-check fa-2x"></i>
+              </div>
+              <h1 class="display-5 fw-bold"><%= t.summary.title %></h1>
+              <p class="lead text-muted"><%= t.summary.subtitle %></p>
             </div>
-        </div>
-    </nav>
 
-    <!-- 📄 Booking Summary -->
-    <main class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-
-                    <div class="bg-white shadow rounded p-5">
-
-                        <!-- ✅ Header -->
-                        <div class="text-center mb-5">
-                            <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-                            <h1 class="display-5 fw-bold"><%= t.summary.title %></h1>
-                            <p class="text-muted"><%= t.summary.subtitle %></p>
-                        </div>
-
-                        <!-- 🧾 Booking Details -->
-                        <div class="row g-4">
-                            <!-- 🎉 Event Info -->
-                            <div class="col-md-6">
-                                <div class="border rounded p-4 h-100 bg-light">
-                                    <h5 class="fw-bold mb-3"><%= t.summary.eventDetails %></h5>
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="mb-2">
-                                            <strong><%= t.summary.eventType %>:</strong><br>
-                                            <span class="text-capitalize">
-                                                <% if (booking.event_type === 'wedding') { %>
-                                                    <%= t.nav.wedding %>
-                                                <% } else if (booking.event_type === 'birthday') { %>
-                                                    <%= t.nav.birthday %>
-                                                <% } else if (booking.event_type === 'baptism') { %>
-                                                    <%= t.nav.baptism %>
-                                                <% } else { %>
-                                                    <%= booking.event_type %>
-                                                <% } %>
-                                            </span>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong><%= t.summary.eventDate %>:</strong><br>
-                                            <%= new Date(booking.event_date).toLocaleDateString('fr-FR') %>
-                                        </li>
-                                        <li>
-                                            <strong><%= t.summary.guests %>:</strong><br>
-                                            <%= booking.guests %>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- 📞 Contact Info -->
-                            <div class="col-md-6">
-                                <div class="border rounded p-4 h-100 bg-light">
-                                    <h5 class="fw-bold mb-3"><%= t.summary.contactInfo %></h5>
-                                    <ul class="list-unstyled mb-0">
-                                        <li class="mb-2">
-                                            <strong><%= t.summary.name %>:</strong><br>
-                                            <%= booking.full_name %>
-                                        </li>
-                                        <li class="mb-2">
-                                            <strong><%= t.summary.phone %>:</strong><br>
-                                            <%= booking.phone %>
-                                        </li>
-                                        <li>
-                                            <strong><%= t.summary.email %>:</strong><br>
-                                            <%= booking.email %>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 💰 Pricing -->
-                        <div class="text-center my-5">
-                            <h4 class="fw-bold mb-3"><%= t.summary.serviceCost %></h4>
-                            <div class="fs-2 fw-bold text-success">
-                                $<%= booking.price %>
-                            </div>
-                            <p class="text-muted mb-0"><%= t.summary.totalCost %></p>
-                        </div>
-
-                        <!-- 📝 Notes -->
-                        <% if (booking.message && booking.message.trim() !== '') { %>
-                            <div class="mt-4">
-                                <h5 class="fw-bold"><%= t.summary.additionalNotes %></h5>
-                                <div class="bg-light border rounded p-3">
-                                    <p class="mb-0"><%= booking.message %></p>
-                                </div>
-                            </div>
+            <!-- Info Grids -->
+            <div class="row g-4">
+              <!-- Event Details -->
+              <div class="col-md-6">
+                <div class="bg-opacity-10 p-4 rounded">
+                  <h4 class="fw-bold mb-3"><%= t.summary.eventDetails %></h4>
+                  <ul class="list-unstyled">
+                    <li class="mb-2">
+                      <strong><%= t.summary.eventType %>:</strong><br />
+                      <span class="text-capitalize">
+                        <% if (booking.event_type === 'wedding') { %>
+                          <%= t.nav.wedding %>
+                        <% } else if (booking.event_type === 'birthday') { %>
+                          <%= t.nav.birthday %>
+                        <% } else if (booking.event_type === 'baptism') { %>
+                          <%= t.nav.baptism %>
+                        <% } else { %>
+                          <%= booking.event_type %>
                         <% } %>
-
-                        <!-- 🚀 Next Steps -->
-                        <div class="text-center mt-5">
-                            <h5 class="fw-bold mb-2"><%= t.summary.nextSteps.title %></h5>
-                            <p class="text-muted mb-4"><%= t.summary.nextSteps.description %></p>
-                            <div class="d-flex flex-wrap justify-content-center gap-3">
-                                <a href="/" class="btn btn-primary btn-lg">
-                                    <%= t.summary.nextSteps.backHome %>
-                                </a>
-                                <a href="/<%= booking.event_type %>" class="btn btn-outline-dark btn-lg">
-                                    <%= t.summary.nextSteps.viewServices %>
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
+                      </span>
+                    </li>
+                    <li class="mb-2"><strong><%= t.summary.eventDate %>:</strong><br /><%= new Date(booking.event_date).toLocaleDateString('fr-FR') %></li>
+                    <li class="mb-2"><strong><%= t.summary.guests %>:</strong><br /><%= booking.guests %></li>
+                  </ul>
                 </div>
+              </div>
+
+              <!-- Contact Information -->
+              <div class="col-md-6">
+                <div class="bg-opacity-10 p-4 rounded">
+                  <h4 class="fw-bold mb-3"><%= t.summary.contactInfo %></h4>
+                  <ul class="list-unstyled">
+                    <li class="mb-2"><strong><%= t.summary.name %>:</strong><br /><%= booking.full_name %></li>
+                    <li class="mb-2"><strong><%= t.summary.phone %>:</strong><br /><%= booking.phone %></li>
+                    <li class="mb-2"><strong><%= t.summary.email %>:</strong><br /><%= booking.email %></li>
+                  </ul>
+                </div>
+              </div>
             </div>
-        </div>
-    </main>
 
-    <!-- ⚓ Footer -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <div class="container">
-            <p class="mb-0 small"><%= t.footer.copyright %></p>
-        </div>
-    </footer>
+            <!-- Pricing -->
+            <div class="text-center mt-5">
+              <h3 class="fw-bold mb-2"><%= t.summary.serviceCost %></h3>
+              <div class="price-display mb-2">$<%= booking.price %></div>
+              <p class="lead text-muted"><%= t.summary.totalCost %></p>
+            </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+            <!-- Message/Notes -->
+            <% if (booking.message && booking.message.trim() !== '') { %>
+              <div class="mt-4">
+                <h5 class="fw-bold mb-2"><%= t.summary.additionalNotes %>:</h5>
+                <div class="bg-opacity-10 p-3 rounded">
+                  <p class="mb-0"><%= booking.message %></p>
+                </div>
+              </div>
+            <% } %>
+
+            <!-- Next Steps -->
+            <div class="text-center mt-5">
+              <h4 class="fw-bold mb-3"><%= t.summary.nextSteps.title %></h4>
+              <p class="text-muted mb-4"><%= t.summary.nextSteps.description %></p>
+              <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="/" class="btn btn-light btn-lg"><%= t.summary.nextSteps.backHome %></a>
+                <a href="/<%= booking.event_type %>" class="btn btn-outline-light btn-lg"><%= t.summary.nextSteps.viewServices %></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <p class="mb-0 small">&copy; <%= new Date().getFullYear() %> <%= t.footer.copyright %></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

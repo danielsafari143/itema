@@ -1,146 +1,167 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services de Baptême - Réservation d'Événements</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services de Baptême - Réservation d'Événements</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+  <style>
+    /* Hero Section */
+    .hero-section {
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-section::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .event-gallery img {
+      border-radius: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .event-gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    .footer {
+      background-color: #f8f9fa;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      color: #6c757d;
+    }
+
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      line-height: 80px;
+      border-radius: 50%;
+      background-color: rgba(13, 110, 253, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .btn-primary {
+      padding: 0.75rem 1.5rem;
+      font-size: 1.125rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/"><%= t.nav.brand %></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/wedding"><%= t.nav.wedding %></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/birthday"><%= t.nav.birthday %></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/baptism"><%= t.nav.baptism %></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/login">Administration</a>
-                    </li>
-                </ul>
-            </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/"><%= t.nav.brand %></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/wedding"><%= t.nav.wedding %></a></li>
+          <li class="nav-item"><a class="nav-link" href="/birthday"><%= t.nav.birthday %></a></li>
+          <li class="nav-item"><a class="nav-link active" href="/baptism"><%= t.nav.baptism %></a></li>
+          <li class="nav-item"><a class="nav-link" href="/admin/login">Administration</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-section" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-3"><%= t.events.baptism.title %></h1>
+      <p class="lead mb-3"><%= t.events.baptism.subtitle %></p>
+      <div class="mb-4">
+        <span class="badge bg-light text-dark fs-5 px-3 py-2">À partir de $<%= prices.baptism %></span>
+      </div>
+      <a href="/baptism/booking" class="btn btn-primary btn-lg"><%= t.common.bookNow %></a>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-5">
+    <div class="container-lg">
+      <div class="row mb-5 text-center">
+        <div class="col">
+          <h2 class="display-5 fw-bold mb-3"><%= t.events.baptism.services.title %></h2>
+          <p class="lead text-muted"><%= t.events.baptism.services.description %></p>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4"><%= t.events.baptism.title %></h1>
-            <p class="lead mb-4"><%= t.events.baptism.subtitle %></p>
-            <div class="mb-4">
-                <span class="badge bg-light text-dark fs-5 px-3 py-2">À partir de $<%= prices.baptism %></span>
-            </div>
-            <a href="/baptism/booking" class="btn btn-primary btn-lg"><%= t.common.bookNow %></a>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4 text-center">
+          <div class="service-icon"><i class="fas fa-church fa-2x text-primary"></i></div>
+          <h5><%= t.events.baptism.services.ceremony.title %></h5>
+          <p class="text-muted"><%= t.events.baptism.services.ceremony.description %></p>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-5 fw-bold mb-4"><%= t.events.baptism.services.title %></h2>
-                    <p class="lead text-muted mb-5">
-                        <%= t.events.baptism.services.description %>
-                    </p>
-                </div>
-            </div>
-
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-church fa-2x text-primary"></i>
-                        </div>
-                        <h5><%= t.events.baptism.services.ceremony.title %></h5>
-                        <p class="text-muted"><%= t.events.baptism.services.ceremony.description %></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-users fa-2x text-primary"></i>
-                        </div>
-                        <h5><%= t.events.baptism.services.reception.title %></h5>
-                        <p class="text-muted"><%= t.events.baptism.services.reception.description %></p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="text-center">
-                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
-                            <i class="fas fa-gift fa-2x text-primary"></i>
-                        </div>
-                        <h5><%= t.events.baptism.services.touches.title %></h5>
-                        <p class="text-muted"><%= t.events.baptism.services.touches.description %></p>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-4 text-center">
+          <div class="service-icon"><i class="fas fa-users fa-2x text-primary"></i></div>
+          <h5><%= t.events.baptism.services.reception.title %></h5>
+          <p class="text-muted"><%= t.events.baptism.services.reception.description %></p>
         </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <div class="row text-center mb-5">
-                <div class="col-12">
-                    <h2 class="display-5 fw-bold"><%= t.events.baptism.gallery.title %></h2>
-                    <p class="lead text-muted"><%= t.events.baptism.gallery.subtitle %></p>
-                </div>
-            </div>
-            
-            <div class="row g-4 event-gallery">
-                <div class="col-lg-4 col-md-6">
-                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                         class="img-fluid" alt="Cérémonie de Baptême">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                         class="img-fluid" alt="Réception de Baptême">
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                         class="img-fluid" alt="Célébration de Baptême">
-                </div>
-            </div>
+        <div class="col-md-4 text-center">
+          <div class="service-icon"><i class="fas fa-gift fa-2x text-primary"></i></div>
+          <h5><%= t.events.baptism.services.touches.title %></h5>
+          <p class="text-muted"><%= t.events.baptism.services.touches.description %></p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="display-5 fw-bold mb-4"><%= t.events.baptism.cta.title %></h2>
-                    <p class="lead text-muted mb-4">
-                        <%= t.events.baptism.cta.subtitle %>
-                    </p>
-                    <a href="/baptism/booking" class="btn btn-primary btn-lg"><%= t.events.baptism.cta.button %></a>
-                </div>
-            </div>
+  <!-- Gallery -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold"><%= t.events.baptism.gallery.title %></h2>
+        <p class="lead text-muted"><%= t.events.baptism.gallery.subtitle %></p>
+      </div>
+      <div class="row g-4 event-gallery">
+        <div class="col-lg-4 col-md-6">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="img-fluid" alt="Cérémonie de Baptême">
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container text-center">
-            <p><%= t.footer.copyright %></p>
+        <div class="col-lg-4 col-md-6">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="img-fluid" alt="Réception de Baptême">
         </div>
-    </footer>
+        <div class="col-lg-4 col-md-6">
+          <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="img-fluid" alt="Célébration de Baptême">
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+  <!-- Call to Action -->
+  <section class="py-5">
+    <div class="container text-center">
+      <h2 class="display-5 fw-bold mb-3"><%= t.events.baptism.cta.title %></h2>
+      <p class="lead text-muted mb-4"><%= t.events.baptism.cta.subtitle %></p>
+      <a href="/baptism/booking" class="btn btn-primary btn-lg"><%= t.events.baptism.cta.button %></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <p class="mb-0 small">&copy; <%= new Date().getFullYear() %> <%= t.footer.copyright %></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
